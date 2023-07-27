@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """"pascal triangle """
+
+
 def pascal_triangle(n):
     """"checking if n is zero or negative"""
     if n <= 0:
@@ -18,5 +20,7 @@ def pascal_triangle(n):
         triangle.append(new_row)
 
     return triangle
+
+
 if __name__ == "__main__":
     pascal_tringale()
