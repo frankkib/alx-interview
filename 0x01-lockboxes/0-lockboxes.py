@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """function to try and unlocked boxes"""
 from collections import deque
 
