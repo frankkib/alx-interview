@@ -40,4 +40,13 @@ def solve_nqueens(board, row, n):
 
 
 if __name__ == "__main__":
-    nqueens(5)
+    import sys
+    if len(sys.argv) != 2:
+        print("Usage: ./0-nqueens.py N")
+        sys.exit(1)
+    n = int(sys.argv[1])
+    if n < 4:
+        print("n must be 4")
+        sys.exit(1)
+
+    nqueens(n)
