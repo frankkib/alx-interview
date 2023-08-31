@@ -2,6 +2,7 @@
 """
 The N queen interview question
 """
+import sys
 
 
 def nqueens(n):
@@ -40,7 +41,6 @@ def solve_nqueens(board, row, n):
 
 
 if __name__ == "__main__":
-    import sys
     if len(sys.argv) != 2:
         print("Usage: ./0-nqueens.py N")
         sys.exit(1)
