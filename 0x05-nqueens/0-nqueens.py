@@ -2,8 +2,8 @@
 """
 The N queen interview question
 """
-import sys
 
+import sys
 
 def nqueens(n):
     """
@@ -11,7 +11,6 @@ def nqueens(n):
     """
     board = [-1] * n
     solve_nqueens(board, 0, n)
-
 
 def is_valid(board, row, col):
     """
@@ -25,7 +24,6 @@ def is_valid(board, row, col):
             return False
     return True
 
-
 def solve_nqueens(board, row, n):
     """
     Recursively solve the N queens puzzle by placing queens on the board.
@@ -38,7 +36,6 @@ def solve_nqueens(board, row, n):
         if is_valid(board, row, col):
             board[row] = col
             solve_nqueens(board, row + 1, n)
-
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
