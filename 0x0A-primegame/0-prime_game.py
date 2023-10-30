@@ -25,7 +25,7 @@ def isWinner(x, nums):
     """
     function for finding the winner
     """
-    if x == 0:
+    if x <= 0:
         return None
 
     maria_wins = 0
