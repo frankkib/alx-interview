@@ -28,6 +28,14 @@ def isWinner(x, nums):
     if x <= 0:
         return None
 
+    max_nums = max(nums)
+    prime_counts = [0] * (max_nums + 1)
+
+    for number in range(2, max_nums + 1):
+        prime_counts[number] = prime_counts[number - 1]
+        if is_prime(number):
+            prime_counts[number] += 1
+
     maria_wins = 0
     ben_wins = 0
 
