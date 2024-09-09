@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-'''A program that reads stdin line by line, processes log data, and calculates statistics'''
+'''A program that reads stdin line by line, processes
+log data, and calculates statistics'''
 
 import sys
 
