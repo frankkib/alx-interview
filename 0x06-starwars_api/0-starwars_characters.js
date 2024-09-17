@@ -1,51 +1,37 @@
-#!/usr/bin/node
-const request = require('request');
-const process = require('process');
+#!/usr/bin/env node
 
-function getMovieCharacters (movieId) {
-  return new Promise((resolve, reject) => {
-    const url = `https://swapi-api.alx-tools.com/api/films/${movieId}`;
-    request.get(url, (error, response, body) => {
-      if (error) {
-        reject(new Error(error));
-      } else if (response.statusCode !== 200) {
-        reject(new Error(`Failed to fetch movie data for movie ID ${movieId}`));
-      } else {
-        const movieData = JSON.parse(body);
-        const charactersUrls = movieData.characters;
-        const charactersNames = [];
-        let charactersCount = 0;
-        charactersUrls.forEach(characterUrl => {
-          request.get(characterUrl, (error, response, body) => {
-            if (!error && response.statusCode === 200) {
-              const characterData = JSON.parse(body);
-              charactersNames.push(characterData.name);
-              charactersCount++;
-              if (charactersCount === charactersUrls.length) {
-                resolve(charactersNames);
-              }
-            } else {
-              reject(new Error(`Failed to fetch character data for ${characterUrl}`));
-            }
-          });
-        });
+const axios = require('axios');
+
+async function getMovieCharacters (movieId) {
+  const baseUrl = `https://swapi.dev/api/films/${movieId}/`;
+
+  try {
+    // Fetch movie details
+    const response = await axios.get(baseUrl);
+    const movieData = response.data;
+
+    // Get character URLs
+    const charactersUrls = movieData.characters;
+
+    // Fetch and print each character's name
+    for (const characterUrl of charactersUrls) {
+      try {
+        const characterResponse = await axios.get(characterUrl);
+        console.log(characterResponse.data.name);
+      } catch (error) {
+        console.error(`Error fetching character data: ${error.message}`);
       }
-    });
-  });
+    }
+  } catch (error) {
+    console.error(`Error fetching movie data: ${error.message}`);
+  }
 }
 
-if (process.argv.length !== 3) {
-  console.log('Usage: node script.js <movie_id>');
-  process.exit(1);
-}
-
+// Get the movie ID from the command line arguments
 const movieId = process.argv[2];
-getMovieCharacters(movieId)
-  .then(characters => {
-    characters.forEach(character => {
-      console.log(character);
-    });
-  })
-  .catch(error => {
-    console.error(error);
-  });
+
+if (!movieId) {
+  console.log('Usage: node script.js <movie_id>');
+} else {
+  getMovieCharacters(movieId);
+}
