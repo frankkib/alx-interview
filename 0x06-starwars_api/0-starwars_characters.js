@@ -14,15 +14,25 @@ function getMovieCharacters (movieId) {
 
     // Get character URLs
     const charactersUrls = body.characters;
+    const characterNames = [];
+    let completedRequests = 0;
 
-    // Fetch and print each character's name
-    charactersUrls.forEach((characterUrl) => {
+    // Fetch and store each character's name
+    charactersUrls.forEach((characterUrl, index) => {
       request(characterUrl, { json: true }, (error, response, body) => {
         if (error) {
           console.error(`Error fetching character data: ${error.message}`);
           return;
         }
-        console.log(body.name);
+        characterNames[index] = body.name;
+        completedRequests++;
+
+        // When all requests are completed, print character names in order
+        if (completedRequests === charactersUrls.length) {
+          characterNames.forEach((name) => {
+            console.log(name);
+          });
+        }
       });
     });
   });
